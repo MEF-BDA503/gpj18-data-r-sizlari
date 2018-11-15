@@ -7,17 +7,15 @@
 - [Serhan Süer](https://mef-bda503.github.io/pj18-SerhanSuer/)
 - [Ufuk Baysal](https://mef-bda503.github.io/pj18-baysalu/)
 
+# 1. Project Proposal
+
+
+
+
+
 ```markdown
 
-
-
 ```
-
-For more details see
-
-### Jekyll ##### 
-
-
 ### Useful
 - Github Editor [editor on GitHub](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/edit/master/index.md)
 - Settings [repository settings](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/settings)
