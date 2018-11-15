@@ -8,6 +8,7 @@
 - [Ufuk Baysal](https://mef-bda503.github.io/pj18-baysalu/)
 
 # 1. Project Proposal
+You can see the proposal of the project [here.](project_proposal.html)
 
 
 
