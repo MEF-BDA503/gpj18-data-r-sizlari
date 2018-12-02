@@ -10,12 +10,13 @@
 # 1. Project Proposal
 You can see the proposal of the project [here.](project_proposal.html)
 
+# 2. Initial Analysis
+You can see the initial analysis of the project [here.](Summary_of_Food_Prices_for_Turkey.html)
 
 
 
 
 ```markdown
-
 ```
 ### Useful
 - Github Editor [editor on GitHub](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/edit/master/index.md)
