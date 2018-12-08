@@ -342,9 +342,21 @@ raw_data=
 raw_data %&gt;%
 mutate(date = ymd(date)) %&gt;% 
 mutate_at(vars(date), funs(year, month)) 
+
+# Save organized file as &quot;.rds&quot;
 saveRDS(raw_data, file = &quot;C:/Ufuk/BDA_503_Data_Analytics_Essentials/Project/Dataset/wfp_food_prices_turkey.rds&quot;)
-raw_data = readRDS(&quot;C:/Ufuk/BDA_503_Data_Analytics_Essentials/Project/Dataset/wfp_food_prices_turkey.rds&quot;)
-head(raw_data)</code></pre>
+
+# Reading organized &quot;.rds&quot; file from GPJ 
+# Create a temporary file
+tmp=tempfile(fileext=&quot;.rds&quot;)
+# Download file from repository to the temp file
+download.file(&quot;https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/wfp_food_prices_turkey.rds?raw=true&quot;,destfile=tmp,mode=&#39;wb&#39;)
+# Read that rds file.
+raw_data=read_rds(tmp)
+# Remove the temp file
+file.remove(tmp)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>head(raw_data)</code></pre>
 <pre><code>##         date          name unit               type  value currency
 ## 1 2013-05-15 Rice - Retail   KG cereals and tubers 4.4920      TRY
 ## 2 2013-06-15 Rice - Retail   KG cereals and tubers 4.5786      TRY
