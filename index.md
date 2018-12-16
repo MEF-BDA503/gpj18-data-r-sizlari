@@ -1,6 +1,6 @@
 # **Welcome to Data Rsizlari PJ !!**
 
-This is the group project page of Data Rsizlari Team. As a team, we would like to present the progress stages of our project in below sections. 
+This is the group project page of Data Rsizlari Team. As a team, we would like to present the progress of our project in below sections. 
 
 ## **Data Rsizlari** - Group Members: 
 - [Ahmet Turhal](https://mef-bda503.github.io/pj18-aturhal/)
@@ -22,7 +22,7 @@ We have revised our initial analysis based on the reviews of our instructor.
 You can find the revised version of our analysis [here.](Turkey Food Prices_Revised Initial Analysis.html)
 
 ## 4. Explatory Analysis (Dec 17)
-You can see the initial analysis of the project [here.]
+You can find the more comprehensive analysis of the project [here.]
 
 ## 5. Final Presentation (Dec 26)
 *In Progress..*
