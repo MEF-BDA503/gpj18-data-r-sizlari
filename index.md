@@ -13,6 +13,9 @@ You can see the proposal of the project [here.](project_proposal.html)
 # 2. Initial Analysis
 You can see the initial analysis of the project [here.](Summary_of_Food_Prices_for_Turkey.html)
 
+# 3. Explatory Analysis
+You can see the initial analysis of the project [here.](World_Food_Prices_Analysis_First_Draft.html)
+
 
 
 
