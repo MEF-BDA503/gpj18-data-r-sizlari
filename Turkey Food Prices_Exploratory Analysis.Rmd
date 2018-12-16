@@ -1,0 +1,442 @@
+---
+title: "Exploratory Data Analysis of Food Prices for Turkey"
+author: "Data R Sizlari"
+date: "Dec 17, 2018"
+output: 
+  html_document:
+    toc: true # table of content
+    theme: cerulean
+---
+---
+
+
+```{r, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(forcats)
+library(scales)
+library(lubridate)
+library(reshape2)
+library(dplyr)
+library(shiny)
+```
+
+# A. Data Summary of Food Prices for Turkey
+
+Food Prices data for Turkey containd main food prices data comes from the World Food Programme (WFP) and covers 52 different kinds of foods within 8 main categories. The data is basically categorized into food category, market, years and units.
+
+Manipulation and the process of the data performed in the initial analysis. All the steps and detailed dimensions of the data can be found in our [initial analysis document.](https://mef-bda503.github.io/gpj18-data-r-sizlari/Turkey%20Food%20Prices_Revised%20Initial%20Analysis.html)
+
+
+```{r}
+# Reading organized ".rds" file from GPJ 
+# Create a temporary file
+tmp=tempfile(fileext=".rds")
+# Download file from repository to the temp file
+download.file("https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/wfp_food_prices_turkey.rds?raw=true",destfile=tmp,mode='wb')
+# Read that rds file.
+refined_data=read_rds(tmp)
+# Remove the temp file
+file.remove(tmp)
+head(refined_data)
+```
+
+# B. Exploratory Analysis 
+
+## Yearly Average Price per Category
+
+To have a general look at category and their yearly price developments, we checked average prices per food type.
+
+This graph shows that 2018 prices have increased in all categories. "milk and dairy" is the first type of foods that had significant price changes, followed by "meat, fish and eggs".
+
+
+```{r}
+refined_data %>% 
+    filter(market=="National Average") %>%
+    group_by(type, year) %>%
+    summarise(yearly_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = type, y = yearly_average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position=position_dodge()) + aes(x = type, 
+    y =   yearly_average_price) + labs(x = "", y = "", title = "Yearly Average Price per Category") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
+```
+
+After a general summary, we want to deep dive into category details and food price developments in each category.
+
+### 1. Yearly Average Price for Cereals and Tubers
+
+According to Yearly Average Price for Cereals and Tubers graph, bread and rice have significant price increase for 2018.  
+
+```{r}
+    refined_data %>% 
+    filter(market=="National Average") %>%
+    filter(type=="cereals and tubers") %>% 
+    group_by(name, year) %>%
+    summarise(yearly_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = name, y = yearly_average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position=position_dodge()) + aes(x = name, 
+    y =   yearly_average_price) + labs(x = "", y = "", title = "Yearly Average Price for Cereals and Tubers") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
+```
+
+For a better understanding, we also included trend graph for bread and rice.
+
+***Bread***
+
+Fluctuation in exchange rates increased the unit prices of flour.Increase in flour prices and other cost items caused bread prices to increase in 2018.Related news about the prices can be found in the following [link.](https://www.haberturk.com/emek-fiyatlari-istanbul-da-ekmege-zam-geldi-iste-istanbul-ekmek-fiyatlari-2076820-ekonomi)
+
+***Rice***
+
+Adverse weather conditions especially in US & EU caused rice prices to increase in 2018. According to [TAGEM](https://arastirma.tarimorman.gov.tr/tepge/Belgeler/PDF%20Tar%C4%B1m%20%C3%9Cr%C3%BCnleri%20Piyasalar%C4%B1/2018-Ocak%20Tar%C4%B1m%20%C3%9Cr%C3%BCnleri%20Raporu/2018-Ocak%20%C3%87eltik.pdf) report, rice supply would be lower than 2017 due to the negative effects of the weather conditions. Related news about the prices can be found in the following [link.](http://www.millermagazine.com/bugday-ve-pirinc-fiyati-martta-yuzde-27-artti/.html) 
+
+
+```{r}
+refined_data %>% 
+  filter(market=="National Average")%>%
+  group_by(name, year) %>%
+  summarise(yearly_average_price=mean(value)) %>%
+  mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
+  arrange(desc(YoY_growth)) %>%
+  filter(name=="Bread (common) - Retail" | name=="Rice - Retail") %>% 
+  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  geom_line() + 
+  geom_point()+
+  labs( x="" , y = "Yearly Average Price")+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+```
+
+### 2. Yearly Average Price for Meat, Fish and Eggs
+
+According to Yearly Average Price for Meat, Fish and Eggs graph, fresh fish and meat(mutton) have significant price increase for 2018.  
+
+```{r}
+    refined_data %>% 
+    filter(market=="National Average") %>%
+    filter(type=="meat, fish and eggs") %>% 
+    group_by(name, year) %>%
+    summarise(yearly_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = name, y = yearly_average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position=position_dodge()) + aes(x = name, 
+    y =   yearly_average_price) + labs(x = "", y = "", title = "Yearly Average Price for Meat, Fish and Eggs") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
+```
+
+For a better understanding, we also included trend graph for fish (fresh) and meat (mutton).
+
+***Fish (fresh) & Meat (mutton)***
+
+Due to the increase in meat and chicken prices based on the currency crisis, people have preferred fish instead of meat & chicken. However, negative weather conditions decreases the supply of the fish which cannot meet the higher demand for the fish. That's why, fish prices have been increased accordingly. Related news about the prices can be found in the following
+[link.](https://www.memurlar.net/haber/778992/denizden-cikanlar-yetmedi-fiyati-3-e-katlandi.html)
+
+
+```{r}
+refined_data %>% 
+  filter(market=="National Average")%>%
+  group_by(name, year) %>%
+  summarise(yearly_average_price=mean(value)) %>%
+  mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
+  arrange(desc(YoY_growth)) %>%
+  filter(name=="Fish (fresh) - Retail" | name=="Meat (mutton) - Retail") %>% 
+  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  geom_line() + 
+  geom_point()+
+  labs( x="" , y = "Yearly Average Price")+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+```
+
+### 3. Yearly Average Price for Milk and Dairy
+
+According to Yearly Average Price for Milk and Diary graph, Milk(powder,infant formula) has significant price increase for 2018.  
+
+```{r}
+    refined_data %>% 
+    filter(market=="National Average") %>%
+    filter(type=="milk and dairy") %>% 
+    group_by(name, year) %>%
+    summarise(yearly_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = name, y = yearly_average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position=position_dodge()) + aes(x = name, 
+    y =   yearly_average_price) + labs(x = "", y = "", title = "Yearly Average Price for Milk and Dairy") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
+```
+
+For a better understanding, we also included trend graph for milk (powder, infant formula).
+
+***Milk (powder, infant formula)***
+
+Infant food prices have risen significantly in the last year. Pharmacists explained the reason of this increase as baby food is not paid by the Social Security Institution (SGK), the pricing decision is left to the initiative of private companies which leaded enormous prices in baby foods.Related news about the prices can be found in the following [link.](https://www.sozcu.com.tr/2018/ekonomi/bebek-mamasi-fiyatlari-durdurulamiyor-2284451/)
+
+
+```{r}
+refined_data %>% 
+  filter(market=="National Average")%>%
+  group_by(name, year) %>%
+  summarise(yearly_average_price=mean(value)) %>%
+  mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
+  arrange(desc(YoY_growth)) %>%
+  filter(name=="Milk (powder, infant formula) - Retail") %>% 
+  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  geom_line() + 
+  geom_point()+
+  labs( x="" , y = "Yearly Average Price")+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+```
+
+
+### 4. Yearly Average Price for Miscellaneous Food
+
+According to Yearly Average Price for Miscellaneous Food graph, Cocoa and Coffee(Instant) have significant price increase for 2018.  
+
+```{r}
+    refined_data %>% 
+    filter(market=="National Average") %>%
+    filter(type=="miscellaneous food") %>% 
+    group_by(name, year) %>%
+    summarise(yearly_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = name, y = yearly_average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position=position_dodge()) + aes(x = name, 
+    y =   yearly_average_price) + labs(x = "", y = "", title = "Yearly Average Price for Miscellaneous Food") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
+```
+
+For a better understanding, we also included trend graph for cocoa and coffee (instant).
+
+***Cocoa***
+
+The future of cocoa is said to be under threat due to more than several reasons from global warming to pest. These factors can be summarized in 5 main headings:
+1. Increasing demand
+2. Decreasing supply - According to cocoa activists, only 6.6 percent profit remains for cocoa farmers. What makes the situation worse is that young people are turning to more profitable sectors. Today, the average age of cocoa makers is 51 and young people are not interested in cocoa plantation.
+3. A difficult crop - Cocoa tree (theobroma cacao) is a tropical plant. It can only grow in humid, regular precipitation climates with low dry periods. This explains why it can only be produced in a narrow lane between 10 degrees north and 10 degrees south of the equator. Since the seeds in the same tree do not mature at the same time, it is necessary to constantly observe the trees. According to Make Chocolate Fair NGO, only half a kilo of cocoa can be obtained from fruit of a tree within a year.
+4. Very sensitive to climate changes
+5. Environmental threats such as insects, fungi, etc.
+
+Related news about the cacao prices can be found in the following [link.](http://www.cumhuriyet.com.tr/haber/gurme/930802/Kakaonun_gelecegi_tehlike_altinda...__Cikolata_40_yil_icinde_yok_olabilir_.html). 
+
+***Coffee (instant)***
+
+In 2015, coffee prices had notable decreased in the world despite of the increasing demand of the emerging markets.Details of this issue can be found in the following [link](https://dailycoffeenews.com/2015/04/15/coffee-prices-fall-to-14-month-low-despite-increased-consumption/). 
+Additionally, coffee plants are exposed to climate change impacts such as drought, excessive rainfall and pest infestation all over the world which also affects insant coffee prices in Turkey. [link](https://www.bbc.com/turkce/haberler/2015/09/150924_vert_fut_kahve_krizi). 
+
+
+```{r}
+refined_data %>% 
+  filter(market=="National Average")%>%
+  group_by(name, year) %>%
+  summarise(yearly_average_price=mean(value)) %>%
+  mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
+  arrange(desc(YoY_growth)) %>%
+  filter(name=="Cocoa (powder) - Retail" | name=="Coffee (instant) - Retail") %>% 
+  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  geom_line() + 
+  geom_point()+
+  labs( x="" , y = "Yearly Average Price")+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+```
+
+### 5. Yearly Average Price for Oil and Fats
+
+According to Yearly Average Price for Oil and Fats graph, Olive Oil have significant price increase for 2018.  
+
+```{r}
+    refined_data %>% 
+    filter(market=="National Average") %>%
+    filter(type=="oil and fats") %>% 
+    group_by(name, year) %>%
+    summarise(yearly_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = name, y = yearly_average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position=position_dodge()) + aes(x = name, 
+    y =   yearly_average_price) + labs(x = "", y = "", title = "Yearly Average Price for Oil and Fats") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
+```
+
+For a better understanding, we also included trend graph for olive oil.
+
+***Oil (olive) ***
+
+Subsequently in 2015 and 2016, olive oil prices had notable increased due to climate changes. Reports states that climate change worldwide leaded to downfall in yield of crops and that inevitably resulted in increase in the prices. Related news about the prices can be found in the following [link.](https://www.haberturk.com/ekonomi/haberin-var-mi/haber/1131207-zeytinyaginda-fiyat-artisi-devam-edecek)
+
+
+```{r}
+refined_data %>% 
+  filter(market=="National Average")%>%
+  group_by(name, year) %>%
+  summarise(yearly_average_price=mean(value)) %>%
+  mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
+  arrange(desc(YoY_growth)) %>%
+  filter(name=="Oil (olive) - Retail") %>% 
+  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  geom_line() + 
+  geom_point()+
+  labs( x="" , y = "Yearly Average Price")+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+```
+
+ 
+### 6. Yearly Average Price for Pulses and Nuts
+
+According to Yearly Average Price for Pulses and Nuts graph, Groundnuts has significant price increase for 2018.  
+
+```{r}
+    refined_data %>%
+    filter(market=="National Average") %>%
+    filter(type=="pulses and nuts") %>% 
+    group_by(name, year) %>%
+    summarise(yearly_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = name, y = yearly_average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position=position_dodge()) + aes(x = name, 
+    y =   yearly_average_price) + labs(x = "", y = "", title = "Yearly Average Price for Pulses and Nuts") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
+```
+
+For a better understanding, we also included trend graph for groundnuts.
+
+***Groundnuts***
+
+As it can be seen in the graph, there are two major boosts in groundnut prices. In 2015, the reason was the lack of production and merchants were not able to satisfy the demand. Therefore, prices went up dramatically. Related news about the prices can be found in the following [link.](http://www.hurriyet.com.tr/ekonomi/yer-fistigi-fiyatlari-el-yakiyor-29707401)
+
+In 2018, like almost every other product, groundnut prices significantly increased due to the economic crisis.
+
+
+```{r}
+refined_data %>% 
+  filter(market=="National Average")%>%
+  group_by(name, year) %>%
+  summarise(yearly_average_price=mean(value)) %>%
+  mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
+  arrange(desc(YoY_growth)) %>%
+  filter(name=="Groundnuts (shelled) - Retail")  %>% 
+  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  geom_line() + 
+  geom_point()+
+  labs( x="" , y = "Yearly Average Price")+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+```
+
+### 7. Yearly Average Price for Vegetables and Fruits
+
+According to Yearly Average Price for Vegetables and Fruits graph, cucumbers, eggplants and onions have significant price increase for 2018.  
+
+```{r}
+    refined_data %>% 
+    filter(market=="National Average") %>%
+    filter(type=="vegetables and fruits") %>% 
+    group_by(name, year) %>%
+    summarise(yearly_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = name, y = yearly_average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position=position_dodge()) + aes(x = name, 
+    y =   yearly_average_price) + labs(x = "", y = "", title = "Yearly Average Price for Vegetables and Fruits") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
+```
+
+ **The products with maximum price change in vegetables and fruits**
+
+We were interested in yearly average price changes per food, so we added YoY_growth column and sorted the data according to YoY_growth to see the highest price changes in vegetables and fruits and took top 3 for detailed analysis.
+
+
+```{r}
+price_change = refined_data %>%
+  filter(market=="National Average")%>%
+  filter(type=="vegetables and fruits")%>%
+  group_by(name, year) %>%
+  summarise(yearly_average_price=mean(value)) %>%
+  mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
+  arrange(desc(YoY_growth))
+price_change
+```
+
+
+For a better understanding, we also included trend graph for cucumbers, eggplants and onions.
+
+***Onions***
+
+Natural disasters such as heavy floods, floods and frosts caused onion prices to increase in 2018.  
+The stockists are also responsible for the rising prices as well as natural disasters. The products that could not be collected from the damaged fields and their low yield increased the price of onions heavily.Related news about the onions prices can be found in the following [link](http://ekonomi.haber7.com/ekonomi/haber/2653236-patates-ve-sogan-fiyatlari-neden-surekli-yukseliyor-bakanliktan-mudahale).
+
+
+***Cucumbers (greenhouse) & Eggplants***
+
+According to DHA, the yields of Mersin and Antalya's greenhouses from where Turkey meets the needs of the fruits and vegetables during winter significantly reduced because of the cold weather higher than the seasonal norms. Due to the negative effects of cold weather as well as intense export season in this period, the prices of some products in the domestic market including cucumber & eggplants have exceeded the seasonal norms. Related news about the prices can be found in the following [link](https://www.birgun.net/haber-detay/sebze-fiyatlari-yukseldi-147217.html). During 2017, eggplant prices show a decreasing trend that could be interpreted as the normalization of the prices. Since there is no further data for cucumbers, we could not analyse it after 2017. 
+
+
+```{r}
+refined_data %>% 
+  filter(market=="National Average")%>%
+  group_by(name, year) %>%
+  summarise(yearly_average_price=mean(value)) %>%
+  mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
+  arrange(desc(YoY_growth)) %>%
+  filter(name=="Eggplants - Retail" | name=="Onions - Retail" | name=="Cucumbers (greenhouse) - Retail") %>% 
+  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  geom_line() + 
+  geom_point()+
+  labs( x="" , y = "Yearly Average Price")+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+```
+
+# C. Category based time series with Shiny Plot
+
+
+```{r}
+
+data1 <- refined_data %>%
+          group_by(type, year) %>%
+          summarise(yearly_average_price=mean(value))
+          
+
+food_types <- refined_data %>%
+             distinct(type) %>%
+             unlist(.)
+
+names(food_types) <- NULL
+
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+   
+   # Application title
+   titlePanel("Turkey Food Prices"),
+   
+   
+   # Sidebar with a slider input for number of bins 
+   sidebarLayout(
+      sidebarPanel(
+         # sliderInput("bins",
+         #             "Number of bins:",
+         #             min = min(refined_data$year),
+         #             max = max(refined_data$year),
+         #             value = c(2002,2003),sep = "",step = 1)
+        
+      selectInput(inputId = "food_type", label = "Food Types", choices = food_types)
+      ),
+      
+      # Show a plot of the generated distribution
+      mainPanel(
+         plotOutput("foodPlot")
+      )
+   )
+)
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+  
+   output$foodPlot <- renderPlot({
+       food_type_data_set <- data1 %>% filter(type == input$food_type)
+
+      # draw the histogram with the specified number of bins
+      #ggplot(food_type_data_set, aes(x=data1$year, y=data1$yearly_average_price, color=data1$type)) + geom_line()
+      ggplot(food_type_data_set, aes(x = year, y = yearly_average_price)) +
+          geom_line(stat = "identity") + aes(x = year, y = yearly_average_price)
+   })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+```
+
+# D.CONCLUSION
+
+Most of the food prices seem to have increasing price trends majorly due to:
+
+* Climate change impact such as drought, excessive rain fall etc. 
+* Natural causes such as pest infestation
+* Current currency rates crisis
+* Higher demand due to increasing population.
