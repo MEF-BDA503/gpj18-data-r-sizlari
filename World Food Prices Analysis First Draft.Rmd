@@ -1,0 +1,200 @@
+---
+title: "Summary of Food Prices for Turkey"
+author: "Data R Sizlari"
+date: "Dec 2, 2018"
+output: html_document
+---
+
+
+```{r, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(forcats)
+library(scales)
+library(lubridate)
+library(reshape2)
+library(dplyr)
+```
+
+
+## Abstract
+
+This dataset contains Food Prices data for Turkey. Food prices data comes from the World Food Programme (WFP) and covers 52 different kinds of foods within 8 main categories such as cereals and tubers, milk and dairy, oil and fats and vegetables and fruits for Turkey grouped as national average, Ankara, Istanbul and Izmir. It is updated weekly but contains to a large extent monthly data. The data goes back to May 15, 2013 and includes 4,718 rows and 15 columns. The main numerical information in dataset is the food price. The data is basically categorized into food category, market, months and units.
+
+WFP is the world’s largest humanitarian agency fighting hunger worldwide, delivering food assistance in emergencies and working with communities to improve nutrition and build resilience. Each year, WFP assists some 80 million people in around 75 countries.
+
+We would like to visualize the data according to Food Price Trends per category and see the yearly average food price change for the related markets over the months and years. Additionally, we would like to compare our findings for Ankara, Istanbul and Izmir with national average. Finally, we also would like to determine the categories with the most and the least price changes within different periods, as well as the periods which are more likely to have certain price changes.
+
+
+## Data Description
+
+This dataset contains Food Prices data for Turkey. Food prices data comes from the World Food Programme (WFP) and covers 52 different kinds of foods within 8 main categories such as cereals and tubers, milk and dairy, oil and fats and vegetables and fruits for Turkey grouped as national average, Ankara, Istanbul and Izmir. It is updated weekly but contains to a large extent monthly data. The data goes back to May 15, 2013 and includes 4,718 rows and 15 columns. The main numerical information in dataset is the food price. The data is basically categorized into food category, market, months and units.
+
+It can be found columns and their explanations below.
+
+*	date        : Date
+*	cmname      : Food name
+*	unit        : Unit of Measure
+*   category    : Food category
+*	price       : Food Price
+*	currency    : Curreny (TRY)
+*   country     : Country
+*   admname     : -unspecified-
+*   adm1id      : Region code
+*	mktname     : Related Market Name (Ankara, Istanbul, Izmir and National Average)
+*   mktid       : Market code
+*   cmid        : Food code
+*   ptid        : Part code
+*   umid        : Unit code
+*   catid       : Food type code
+*   sn          : Meta code
+*	default     : -unspecified-
+
+
+## Loading The Data
+
+Our raw excel file is in our project repository. We can automatically download that file and put it in a temporary file. Then we can read that excel document into R and remove the temp file.
+
+```{r}
+# Create a temporary file
+tmp=tempfile(fileext=".xlsx")
+
+# Download file from repository to the temp file
+download.file("https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/wfp_food_prices_turkey.csv?raw=true",destfile=tmp,mode='wb')
+
+# Read that csv file.
+raw_data=read.csv(tmp,skip=1)
+
+# Remove the temp file
+file.remove(tmp)
+```
+
+
+## Data Preprocessing
+
+```{r}
+# Remove unwanted columns, adjust column names and delete the rows type = "non-food" 
+refined_data=
+raw_data %>%
+select(-X.country.name,-X.adm1.name,-X.adm1.code,-X.item.code,-X,-X.1,-X.2,-X.item.type.code,-X.meta.id,-X.3)
+colnames(refined_data) = c("date","name","unit","type","value","currency","market")
+refined_data = subset(refined_data,subset=type != "non-food")
+```
+
+
+```{r}
+# Add month and year columns 
+refined_data=
+refined_data %>%
+mutate(date = ymd(date)) %>% 
+mutate_at(vars(date), funs(year, month)) 
+
+# Save organized file as ".rds"
+#saveRDS(raw_data, file = "/Users/serhansuer/Desktop/wfp_food_prices_turkey.rds")
+
+# Reading organized ".rds" file from GPJ 
+# Create a temporary file
+tmp=tempfile(fileext=".rds")
+# Download file from repository to the temp file
+download.file("https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/wfp_food_prices_turkey.rds?raw=true",destfile=tmp,mode='wb')
+# Read that rds file.
+raw_data=read_rds(tmp)
+# Remove the temp file
+file.remove(tmp)
+head(raw_data)
+```
+
+
+## Data Summary after Preprocessing
+
+After organizing the data, the details of the column names & descriptions are represented below:
+
+*	date: Date
+*	name : Food name
+*	unit : Unit of measure
+*	type : Food category
+*	value : Food Price
+*	currency : Curreny (TRY)
+*	market : Related market name (Ankara, Istanbul, Izmir and National Average)
+*	year : Year
+*   month : Month 
+
+
+## Yearly Average Price per Food Type
+
+Since there are many foods in the data, to understand which food type we need to focus on for further analysis, in this graph we checked average prices per food type.
+
+This graph shows that "milk and dairy" is the first type of foods that significant price changes occured, followed by "meat, fish and eggs". Also "oil and fats" average prices increased after these two. The others' average prices looks close to previous years.
+
+We were expecting to find "meat, fish and eggs" as the first type and the "vegetables and fruits" as the second type since in the news price changes are usually represented in percentages.
+
+Also since we compared prices on actual terms by average, both food type group sizes and individual food price ranges affected the results.
+
+```{r}
+refined_data %>% 
+    group_by(type, year) %>%
+    summarise(yearly_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = type, y = yearly_average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position=position_dodge()) + aes(x = type, 
+    y =   yearly_average_price) + labs(x = "", y = "", title = "Yearly Average Price per Food Type") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
+```
+
+## Overall Average Price based on Market
+
+When we checked the overall prices by market we can say that national average is below the İstanbul, Ankara and İzmir but these three have close price levels.
+
+```{r}
+    refined_data %>% 
+    group_by(type, market) %>%
+    summarise(market_average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = type, y = market_average_price, 
+    fill = as.character(market))) + geom_bar(stat = "identity", position = position_dodge()) + aes(x = type, 
+    y =   market_average_price) + labs(x = "", y = "", title = "Overall Average Price based on Market") + theme_bw() + theme( axis.text.x = element_text(angle = 65, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +     guides(fill=guide_legend(title="Market")) 
+```
+
+
+## Average Price Development of Milk and Dairy
+
+```{r}
+refined_data %>% 
+    filter(type=="milk and dairy") %>%
+    group_by(name, year) %>%
+    summarize(average_price=mean(value)) %>%
+    ggplot(data = ., aes(x = name, y = average_price, 
+    fill = as.character(year))) + geom_bar(stat = "identity", position = position_dodge()) + aes(x = name, 
+    y =   average_price) + labs(x = "", y = "", title = "Average Price Development of Milk and Dairy") + theme_bw() + theme( axis.text.x = element_text(angle = 45, 
+    vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))  
+
+```
+
+## The products with maximum price change
+
+```{r}
+price_change = raw_data %>%
+  filter(market=="National Average")%>%
+  group_by(name, year) %>%
+  summarise(yearly_average_price=mean(value)) %>%
+  mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
+  arrange(desc(YoY_growth))
+price_change
+```
+
+
+```{r}
+price_change %>% 
+filter(name=="Eggplants - Retail" | name=="Onions - Retail" | name=="Cucumbers (greenhouse) - Retail" | name=="Potatoes - Retail" | name== "Oil (olive) - Retail" ) %>% 
+  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name  )) + 
+  geom_line() + 
+  geom_point()+
+  labs( x="Year" , y = "Yearly Average Price")+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+
+```
+
+
+## References:
+
+*	[Food Prices for Turkey Dataset](https://data.humdata.org/dataset/wfp-food-prices-for-turkey/resource/33f303b8-4557-424e-8205-227b889f00e5)
+*	[WFP](https://data.humdata.org/organization/3ecac442-7fed-448d-8f78-b385ef6f84e7)
