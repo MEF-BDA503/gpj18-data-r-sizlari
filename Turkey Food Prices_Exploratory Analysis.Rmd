@@ -23,7 +23,7 @@ library(shiny)
 
 # A. Data Summary of Food Prices for Turkey
 
-Food Prices data for Turkey containd main food prices data comes from the World Food Programme (WFP) and covers 52 different kinds of foods within 8 main categories. The data is basically categorized into food category, market, years and units.
+Food Prices data for Turkey contains main food prices data comes from the World Food Programme (WFP) and covers 52 different kinds of foods within 8 main categories. The data is basically categorized into food category, market, years and units.
 
 Manipulation and the process of the data performed in the initial analysis. All the steps and detailed dimensions of the data can be found in our [initial analysis document.](https://mef-bda503.github.io/gpj18-data-r-sizlari/Turkey%20Food%20Prices_Revised%20Initial%20Analysis.html)
 
@@ -45,7 +45,7 @@ head(refined_data)
 
 ## Yearly Average Price per Category
 
-To have a general look at category and their yearly price developments, we checked average prices per food type.
+To have a general look at category and their yearly price developments, we checked the average prices per food type.
 
 This graph shows that 2018 prices have increased in all categories. "milk and dairy" is the first type of foods that had significant price changes, followed by "meat, fish and eggs".
 
@@ -65,7 +65,7 @@ After a general summary, we want to deep dive into category details and food pri
 
 ### 1. Yearly Average Price for Cereals and Tubers
 
-According to Yearly Average Price for Cereals and Tubers graph, bread and rice have significant price increase for 2018.  
+According to Yearly Average Price for Cereals and Tubers graph, bread and rice have significant increase in price for 2018.  
 
 ```{r}
     refined_data %>% 
@@ -79,11 +79,11 @@ According to Yearly Average Price for Cereals and Tubers graph, bread and rice h
     vjust = 0.5, hjust = 0.5, size = 12)) + scale_y_continuous(labels = scales::comma) +   guides(fill=guide_legend(title="Year"))
 ```
 
-For a better understanding, we also included trend graph for bread and rice.
+For a better understanding, we also included a trend graph for bread and rice.
 
 ***Bread***
 
-Fluctuation in exchange rates increased the unit prices of flour.Increase in flour prices and other cost items caused bread prices to increase in 2018.Related news about the prices can be found in the following [link.](https://www.haberturk.com/emek-fiyatlari-istanbul-da-ekmege-zam-geldi-iste-istanbul-ekmek-fiyatlari-2076820-ekonomi)
+Fluctuation in exchange rates increased the unit prices of flour. Increase in flour prices and other cost items caused bread prices to go up in 2018. Related news about the prices can be found in the following [link.](https://www.haberturk.com/emek-fiyatlari-istanbul-da-ekmege-zam-geldi-iste-istanbul-ekmek-fiyatlari-2076820-ekonomi)
 
 ***Rice***
 
@@ -125,7 +125,7 @@ For a better understanding, we also included trend graph for fish (fresh) and me
 
 ***Fish (fresh) & Meat (mutton)***
 
-Due to the increase in meat and chicken prices based on the currency crisis, people have preferred fish instead of meat & chicken. However, negative weather conditions decreases the supply of the fish which cannot meet the higher demand for the fish. That's why, fish prices have been increased accordingly. Related news about the prices can be found in the following
+Due to the increase in meat and chicken prices based on the currency crisis, people went for fish instead of meat & chicken. However, negative weather conditions affected the fish supply which cannot meet the higher demand for it. That's why there is a boost in fish prices accordingly. Related news about the prices can be found in the following
 [link.](https://www.memurlar.net/haber/778992/denizden-cikanlar-yetmedi-fiyati-3-e-katlandi.html)
 
 
@@ -146,7 +146,7 @@ refined_data %>%
 
 ### 3. Yearly Average Price for Milk and Dairy
 
-According to Yearly Average Price for Milk and Diary graph, Milk(powder,infant formula) has significant price increase for 2018.  
+According to Yearly Average Price for Milk and Diary graph, Milk (powder, infant formula) has a notable increase in price for 2018.  
 
 ```{r}
     refined_data %>% 
@@ -164,7 +164,7 @@ For a better understanding, we also included trend graph for milk (powder, infan
 
 ***Milk (powder, infant formula)***
 
-Infant food prices have risen significantly in the last year. Pharmacists explained the reason of this increase as baby food is not paid by the Social Security Institution (SGK), the pricing decision is left to the initiative of private companies which leaded enormous prices in baby foods.Related news about the prices can be found in the following [link.](https://www.sozcu.com.tr/2018/ekonomi/bebek-mamasi-fiyatlari-durdurulamiyor-2284451/)
+Infant food prices have risen significantly in the last year. Pharmacists explained the reason of this increase as baby food is not paid by the Social Security Institution (SGK), the pricing decision is left to the mercy of private companies which leaded to unreasonable prices in baby foods. Related news about the prices can be found in the following [link.](https://www.sozcu.com.tr/2018/ekonomi/bebek-mamasi-fiyatlari-durdurulamiyor-2284451/)
 
 
 ```{r}
@@ -185,7 +185,7 @@ refined_data %>%
 
 ### 4. Yearly Average Price for Miscellaneous Food
 
-According to Yearly Average Price for Miscellaneous Food graph, Cocoa and Coffee(Instant) have significant price increase for 2018.  
+According to Yearly Average Price for Miscellaneous Food graph, Cocoa and Coffee(Instant) have a significant price increase for 2018.  
 
 ```{r}
     refined_data %>% 
@@ -214,8 +214,8 @@ Related news about the cacao prices can be found in the following [link.](http:/
 
 ***Coffee (instant)***
 
-In 2015, coffee prices had notable decreased in the world despite of the increasing demand of the emerging markets.Details of this issue can be found in the following [link](https://dailycoffeenews.com/2015/04/15/coffee-prices-fall-to-14-month-low-despite-increased-consumption/). 
-Additionally, coffee plants are exposed to climate change impacts such as drought, excessive rainfall and pest infestation all over the world which also affects insant coffee prices in Turkey. [link](https://www.bbc.com/turkce/haberler/2015/09/150924_vert_fut_kahve_krizi). 
+In 2015, coffee prices had a notable decrease in the world despite of the increasing demand of the emerging markets. Details of this issue can be found in the following [link](https://dailycoffeenews.com/2015/04/15/coffee-prices-fall-to-14-month-low-despite-increased-consumption/). 
+Additionally, coffee plants are exposed to climate change impacts such as drought, excessive rainfall and pest infestation all over the world which also affects instant coffee prices in Turkey. [link](https://www.bbc.com/turkce/haberler/2015/09/150924_vert_fut_kahve_krizi). 
 
 
 ```{r}
@@ -235,7 +235,7 @@ refined_data %>%
 
 ### 5. Yearly Average Price for Oil and Fats
 
-According to Yearly Average Price for Oil and Fats graph, Olive Oil have significant price increase for 2018.  
+According to Yearly Average Price for Oil and Fats graph, Olive oil have a significant price increase for 2018.  
 
 ```{r}
     refined_data %>% 
@@ -253,7 +253,7 @@ For a better understanding, we also included trend graph for olive oil.
 
 ***Oil (olive) ***
 
-Subsequently in 2015 and 2016, olive oil prices had notable increased due to climate changes. Reports states that climate change worldwide leaded to downfall in yield of crops and that inevitably resulted in increase in the prices. Related news about the prices can be found in the following [link.](https://www.haberturk.com/ekonomi/haberin-var-mi/haber/1131207-zeytinyaginda-fiyat-artisi-devam-edecek)
+Subsequently in 2015 and 2016, olive oil prices have notably increased due to climate changes. Reports states that climate change worldwide leaded to downfall in yield of crops and that inevitably resulted in increase in the prices. Related news about the prices can be found in the following [link.](https://www.haberturk.com/ekonomi/haberin-var-mi/haber/1131207-zeytinyaginda-fiyat-artisi-devam-edecek)
 
 
 ```{r}
@@ -274,7 +274,7 @@ refined_data %>%
  
 ### 6. Yearly Average Price for Pulses and Nuts
 
-According to Yearly Average Price for Pulses and Nuts graph, Groundnuts has significant price increase for 2018.  
+According to Yearly Average Price for Pulses and Nuts graph, Groundnuts have a significant price increase for 2018.  
 
 ```{r}
     refined_data %>%
@@ -350,12 +350,12 @@ For a better understanding, we also included trend graph for cucumbers, eggplant
 ***Onions***
 
 Natural disasters such as heavy floods, floods and frosts caused onion prices to increase in 2018.  
-The stockists are also responsible for the rising prices as well as natural disasters. The products that could not be collected from the damaged fields and their low yield increased the price of onions heavily.Related news about the onions prices can be found in the following [link](http://ekonomi.haber7.com/ekonomi/haber/2653236-patates-ve-sogan-fiyatlari-neden-surekli-yukseliyor-bakanliktan-mudahale).
+The stockists are also responsible for the rising prices as well as natural disasters. The products that could not be collected from damaged fields and their low yield increased the price of onions heavily. Related news about the onions prices can be found in the following [link](http://ekonomi.haber7.com/ekonomi/haber/2653236-patates-ve-sogan-fiyatlari-neden-surekli-yukseliyor-bakanliktan-mudahale).
 
 
 ***Cucumbers (greenhouse) & Eggplants***
 
-According to DHA, the yields of Mersin and Antalya's greenhouses from where Turkey meets the needs of the fruits and vegetables during winter significantly reduced because of the cold weather higher than the seasonal norms. Due to the negative effects of cold weather as well as intense export season in this period, the prices of some products in the domestic market including cucumber & eggplants have exceeded the seasonal norms. Related news about the prices can be found in the following [link](https://www.birgun.net/haber-detay/sebze-fiyatlari-yukseldi-147217.html). During 2017, eggplant prices show a decreasing trend that could be interpreted as the normalization of the prices. Since there is no further data for cucumbers, we could not analyse it after 2017. 
+According to DHA, the yields of Mersin and Antalya's greenhouses from where Turkey meets the needs of the fruits and vegetables during winter significantly reduced because of the cold weather that is higher than the seasonal norms. Due to the negative effects of cold weather as well as intense export season in this period, the prices of some products in the domestic market including cucumber & eggplants have exceeded the seasonal norms. Related news about the prices can be found in the following [link](https://www.birgun.net/haber-detay/sebze-fiyatlari-yukseldi-147217.html). During 2017, eggplant prices showed a decreasing trend that could be interpreted as the normalization of the prices. Since there is no further data for cucumbers, we were not able to analyse it after 2017. 
 
 
 ```{r}
