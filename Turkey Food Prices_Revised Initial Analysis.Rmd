@@ -1,7 +1,7 @@
 ---
 title: "Summary of Food Prices for Turkey"
 author: "Data R Sizlari"
-date: "Dec 2, 2018"
+date: "Dec 16, 2018"
 output: html_document
 ---
 
@@ -88,10 +88,10 @@ tmp=tempfile(fileext=".rds")
 # Download file from repository to the temp file
 download.file("https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/wfp_food_prices_turkey.rds?raw=true",destfile=tmp,mode='wb')
 # Read that rds file.
-raw_data=read_rds(tmp)
+refined_data=read_rds(tmp)
 # Remove the temp file
 file.remove(tmp)
-head(raw_data)
+head(refined_data)
 ```
 
 
@@ -162,7 +162,7 @@ refined_data %>%
 We were interested in yearly average price changes per food, so we added YoY_growth column and sorted the data according to YoY_growth to see the highest price changes.
 
 ```{r}
-price_change = raw_data %>%
+price_change = refined_data %>%
   filter(market=="National Average")%>%
   group_by(name, year) %>%
   summarise(yearly_average_price=mean(value)) %>%
@@ -174,6 +174,7 @@ price_change
 We also added a trend graph for top 5 food price changes and saw that eggplants, onions, cucumbers, potatoes and olive oil had the maximum price changes. In our first analysis, we saw that 
 "milk and dairy" and "meat, fish and eggs" categories had significant price changes. However, when we made the analysis on food detail, we saw that none of top 5 belongs to "milk and dairy" and "meat, fish and eggs" categories.
 
+
 ```{r}
 price_change %>% 
 filter(name=="Eggplants - Retail" | name=="Onions - Retail" | name=="Cucumbers (greenhouse) - Retail" | name=="Potatoes - Retail" | name== "Oil (olive) - Retail" ) %>% 
@@ -181,6 +182,19 @@ filter(name=="Eggplants - Retail" | name=="Onions - Retail" | name=="Cucumbers (
   geom_line() + 
   geom_point()+
   labs( x="" , y = "Yearly Average Price")+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+```
+
+For a better visibility of price changes, we also added a trend graph for top 5 food price changes (YoY_growth rates).
+
+```{r}
+price_change %>% 
+filter(name=="Eggplants - Retail" | name=="Onions - Retail" | name=="Cucumbers (greenhouse) - Retail" | name=="Potatoes - Retail" | name== "Oil (olive) - Retail" ) %>% 
+  filter(YoY_growth!="NA") %>% 
+  ggplot(aes(x = year, y = YoY_growth, group=name, colour=name)) + 
+  geom_line() + 
+  geom_point()+
+  labs( x="" , y = "YoY_growth")+ 
   theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
 ```
 
