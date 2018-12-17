@@ -21,7 +21,7 @@ We have revised our initial analysis based on the reviews of our instructor.
 
 You can find the revised version of our analysis [here.](Turkey Food Prices_Revised Initial Analysis.html)
 
-## 4. Explatory Analysis (Dec 17)
+## 4. Exploratory Analysis (Dec 17)
 You can find the more comprehensive analysis of the project [here.](Turkey_Food_Prices_Exploratory_Analysis.html)
 
 ## 5. Final Presentation (Dec 26)
