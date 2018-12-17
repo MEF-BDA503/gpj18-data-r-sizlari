@@ -6,7 +6,7 @@ output:
   html_document:
     toc: true # table of content
     theme: cerulean
-    runtime: shiny
+    #runtime: shiny
 ---
 ---
 
@@ -70,8 +70,7 @@ According to Yearly Average Price for Cereals and Tubers graph, bread and rice h
 
 ```{r}
     refined_data %>% 
-    filter(market=="National Average") %>%
-    filter(type=="cereals and tubers") %>% 
+    filter(market=="National Average" & type=="cereals and tubers") %>%
     group_by(name, year) %>%
     summarise(yearly_average_price=mean(value)) %>%
     ggplot(data = ., aes(x = name, y = yearly_average_price, 
@@ -88,7 +87,7 @@ Fluctuation in exchange rates increased the unit prices of flour. Increase in fl
 
 ***Rice***
 
-Adverse weather conditions especially in US & EU caused rice prices to increase in 2018. According to [TAGEM](https://arastirma.tarimorman.gov.tr/tepge/Belgeler/PDF%20Tar%C4%B1m%20%C3%9Cr%C3%BCnleri%20Piyasalar%C4%B1/2018-Ocak%20Tar%C4%B1m%20%C3%9Cr%C3%BCnleri%20Raporu/2018-Ocak%20%C3%87eltik.pdf) report, rice supply would be lower than 2017 due to the negative effects of the weather conditions. Related news about the prices can be found in the following [link.](http://www.millermagazine.com/bugday-ve-pirinc-fiyati-martta-yuzde-27-artti/.html) 
+Adverse weather conditions especially in US & EU caused rice prices to increase in 2018. According to [TAGEM](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/2018_Ocak_Celtik.pdf) report, rice supply would be lower than 2017 due to the negative effects of the weather conditions. Related news about the prices can be found in the following [link.](http://www.millermagazine.com/bugday-ve-pirinc-fiyati-martta-yuzde-27-artti/.html) 
 
 
 ```{r}
@@ -99,11 +98,11 @@ refined_data %>%
   mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
   arrange(desc(YoY_growth)) %>%
   filter(name=="Bread (common) - Retail" | name=="Rice - Retail") %>% 
-  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  ggplot(aes(x = year, y = yearly_average_price, colour=name)) + 
   geom_line() + 
   geom_point()+
   labs( x="" , y = "Yearly Average Price")+ 
-  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+  theme(legend.position = "bottom", legend.title = element_blank(), axis.text.x = element_text( angle = 0, size = 10)) 
 ```
 
 ### 2. Yearly Average Price for Meat, Fish and Eggs
@@ -112,8 +111,7 @@ According to Yearly Average Price for Meat, Fish and Eggs graph, fresh fish and 
 
 ```{r}
     refined_data %>% 
-    filter(market=="National Average") %>%
-    filter(type=="meat, fish and eggs") %>% 
+    filter(market=="National Average" & type=="meat, fish and eggs") %>%
     group_by(name, year) %>%
     summarise(yearly_average_price=mean(value)) %>%
     ggplot(data = ., aes(x = name, y = yearly_average_price, 
@@ -138,11 +136,11 @@ refined_data %>%
   mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
   arrange(desc(YoY_growth)) %>%
   filter(name=="Fish (fresh) - Retail" | name=="Meat (mutton) - Retail") %>% 
-  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  ggplot(aes(x = year, y = yearly_average_price, colour=name)) + 
   geom_line() + 
   geom_point()+
   labs( x="" , y = "Yearly Average Price")+ 
-  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+  theme(legend.position = "bottom", legend.title = element_blank(), axis.text.x = element_text(angle = 0, size = 10)) 
 ```
 
 ### 3. Yearly Average Price for Milk and Dairy
@@ -151,8 +149,7 @@ According to Yearly Average Price for Milk and Diary graph, Milk (powder, infant
 
 ```{r}
     refined_data %>% 
-    filter(market=="National Average") %>%
-    filter(type=="milk and dairy") %>% 
+    filter(market=="National Average" & type=="milk and dairy") %>%
     group_by(name, year) %>%
     summarise(yearly_average_price=mean(value)) %>%
     ggplot(data = ., aes(x = name, y = yearly_average_price, 
@@ -176,11 +173,11 @@ refined_data %>%
   mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
   arrange(desc(YoY_growth)) %>%
   filter(name=="Milk (powder, infant formula) - Retail") %>% 
-  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  ggplot(aes(x = year, y = yearly_average_price, colour=name)) + 
   geom_line() + 
   geom_point()+
   labs( x="" , y = "Yearly Average Price")+ 
-  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+  theme(legend.position = "bottom", legend.title = element_blank(), axis.text.x = element_text(angle = 0, size = 10)) 
 ```
 
 
@@ -190,8 +187,7 @@ According to Yearly Average Price for Miscellaneous Food graph, Cocoa and Coffee
 
 ```{r}
     refined_data %>% 
-    filter(market=="National Average") %>%
-    filter(type=="miscellaneous food") %>% 
+    filter(market=="National Average" & type=="miscellaneous food") %>%
     group_by(name, year) %>%
     summarise(yearly_average_price=mean(value)) %>%
     ggplot(data = ., aes(x = name, y = yearly_average_price, 
@@ -227,11 +223,11 @@ refined_data %>%
   mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
   arrange(desc(YoY_growth)) %>%
   filter(name=="Cocoa (powder) - Retail" | name=="Coffee (instant) - Retail") %>% 
-  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  ggplot(aes(x = year, y = yearly_average_price, colour=name)) + 
   geom_line() + 
   geom_point()+
   labs( x="" , y = "Yearly Average Price")+ 
-  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+  theme(legend.position = "bottom", legend.title = element_blank(), axis.text.x = element_text( size = 10)) 
 ```
 
 ### 5. Yearly Average Price for Oil and Fats
@@ -240,8 +236,7 @@ According to Yearly Average Price for Oil and Fats graph, Olive oil have a signi
 
 ```{r}
     refined_data %>% 
-    filter(market=="National Average") %>%
-    filter(type=="oil and fats") %>% 
+    filter(market=="National Average" & type=="oil and fats") %>%
     group_by(name, year) %>%
     summarise(yearly_average_price=mean(value)) %>%
     ggplot(data = ., aes(x = name, y = yearly_average_price, 
@@ -253,10 +248,7 @@ According to Yearly Average Price for Oil and Fats graph, Olive oil have a signi
 For a better understanding, we also included trend graph for olive oil.
 
 ***Oil (olive) ***
-
 Subsequently in 2015 and 2016, olive oil prices have notably increased due to climate changes. Reports states that climate change worldwide leaded to downfall in yield of crops and that inevitably resulted in increase in the prices. Related news about the prices can be found in the following [link.](https://www.haberturk.com/ekonomi/haberin-var-mi/haber/1131207-zeytinyaginda-fiyat-artisi-devam-edecek)
-
-
 ```{r}
 refined_data %>% 
   filter(market=="National Average")%>%
@@ -265,22 +257,18 @@ refined_data %>%
   mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
   arrange(desc(YoY_growth)) %>%
   filter(name=="Oil (olive) - Retail") %>% 
-  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  ggplot(aes(x = year, y = yearly_average_price, colour=name)) + 
   geom_line() + 
   geom_point()+
   labs( x="" , y = "Yearly Average Price")+ 
-  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+  theme(legend.position = "bottom", legend.title = element_blank(), axis.text.x = element_text( size = 10)) 
 ```
-
  
 ### 6. Yearly Average Price for Pulses and Nuts
-
 According to Yearly Average Price for Pulses and Nuts graph, Groundnuts have a significant price increase for 2018.  
-
 ```{r}
     refined_data %>%
-    filter(market=="National Average") %>%
-    filter(type=="pulses and nuts") %>% 
+    filter(market=="National Average" & type=="pulses and nuts") %>%
     group_by(name, year) %>%
     summarise(yearly_average_price=mean(value)) %>%
     ggplot(data = ., aes(x = name, y = yearly_average_price, 
@@ -306,11 +294,11 @@ refined_data %>%
   mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
   arrange(desc(YoY_growth)) %>%
   filter(name=="Groundnuts (shelled) - Retail")  %>% 
-  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  ggplot(aes(x = year, y = yearly_average_price, colour=name)) + 
   geom_line() + 
   geom_point()+
   labs( x="" , y = "Yearly Average Price")+ 
-  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+  theme(legend.position = "bottom", legend.title = element_blank(), axis.text.x = element_text(size = 10)) 
 ```
 
 ### 7. Yearly Average Price for Vegetables and Fruits
@@ -319,8 +307,7 @@ According to Yearly Average Price for Vegetables and Fruits graph, cucumbers, eg
 
 ```{r}
     refined_data %>% 
-    filter(market=="National Average") %>%
-    filter(type=="vegetables and fruits") %>% 
+    filter(market=="National Average" & type=="vegetables and fruits") %>%
     group_by(name, year) %>%
     summarise(yearly_average_price=mean(value)) %>%
     ggplot(data = ., aes(x = name, y = yearly_average_price, 
@@ -336,8 +323,7 @@ We were interested in yearly average price changes per food, so we added YoY_gro
 
 ```{r}
 price_change = refined_data %>%
-  filter(market=="National Average")%>%
-  filter(type=="vegetables and fruits")%>%
+  filter(market=="National Average" & type=="vegetables and fruits")%>%
   group_by(name, year) %>%
   summarise(yearly_average_price=mean(value)) %>%
   mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
@@ -367,69 +353,50 @@ refined_data %>%
   mutate(YoY_growth = (yearly_average_price/lag(yearly_average_price))^(1/(year-lag(year))) - 1) %>%
   arrange(desc(YoY_growth)) %>%
   filter(name=="Eggplants - Retail" | name=="Onions - Retail" | name=="Cucumbers (greenhouse) - Retail") %>% 
-  ggplot(aes(x = year, y = yearly_average_price, group=name, colour=name)) + 
+  ggplot(aes(x = year, y = yearly_average_price, colour=name)) + 
   geom_line() + 
   geom_point()+
   labs( x="" , y = "Yearly Average Price")+ 
-  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.0, size = 10)) 
+  theme(legend.position = "bottom", legend.title = element_blank(), axis.text.x = element_text(size = 10)) 
 ```
 
 # C. Category based time series with Shiny Plot
 
 
 ```{r}
-
 data1 <- refined_data %>%
           group_by(type, year) %>%
           summarise(yearly_average_price=mean(value))
           
-
 food_types <- refined_data %>%
              distinct(type) %>%
              unlist(.)
-
 names(food_types) <- NULL
-
-# Define UI for application that draws a histogram
 ui <- fluidPage(
    
-   # Application title
-   titlePanel("Turkey Food Prices"),
+   titlePanel("Food Prices in Turkey per Category"),
    
-   
-   # Sidebar with a slider input for number of bins 
    sidebarLayout(
       sidebarPanel(
-         # sliderInput("bins",
-         #             "Number of bins:",
-         #             min = min(refined_data$year),
-         #             max = max(refined_data$year),
-         #             value = c(2002,2003),sep = "",step = 1)
-        
-      selectInput(inputId = "food_type", label = "Food Types", choices = food_types)
+      selectInput(inputId = "food_type", label = "Categories", choices = food_types)
       ),
       
-      # Show a plot of the generated distribution
       mainPanel(
          plotOutput("foodPlot")
       )
    )
 )
-
-# Define server logic required to draw a histogram
 server <- function(input, output) {
   
    output$foodPlot <- renderPlot({
        food_type_data_set <- data1 %>% filter(type == input$food_type)
-
-      # draw the histogram with the specified number of bins
-      #ggplot(food_type_data_set, aes(x=data1$year, y=data1$yearly_average_price, color=data1$type)) + geom_line()
+     
       ggplot(food_type_data_set, aes(x = year, y = yearly_average_price)) +
-          geom_line(stat = "identity") + aes(x = year, y = yearly_average_price)
+          geom_line(stat = "identity") + aes(x = year, y = yearly_average_price) +
+        geom_point()
+          
    })
 }
-
-# Run the application 
 shinyApp(ui = ui, server = server)
 ```
 
