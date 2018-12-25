@@ -3,11 +3,11 @@ title: "Food Prices for Turkey"
 author: "Data R Sizlari"
 date: "Dec 26, 2018"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     theme: cerulean
     toc: yes
+  pdf_document:
+     toc: yes
 ---
 ---
 
@@ -31,7 +31,7 @@ library(shiny)
 [Linkedin](https://www.linkedin.com/in/istemakca-100655/)
 *	Mustafa Kurt [Github](https://mef-bda503.github.io/pj18-mustaa8/),
 [Linkedin](https://www.linkedin.com/in/mustafa-kurt-45602128/)
-* Serhan SÃ¼er [Github](https://mef-bda503.github.io/pj18-SerhanSuer/),
+* Serhan Süer [Github](https://mef-bda503.github.io/pj18-SerhanSuer/),
 [Linkedin](https://www.linkedin.com/in/serhan-s%C3%BCer-03646157/)
 *	Ufuk Baysal [Github](https://mef-bda503.github.io/pj18-baysalu/),
 [Linkedin](https://www.linkedin.com/in/ufuk-baysal-68848240/)
@@ -123,7 +123,7 @@ mutate(date = ymd(date)) %>%
 mutate_at(vars(date), funs(year, month)) 
 
 # Save organized file as ".rds"
-saveRDS(refined_data, file = "C:/Ufuk/BDA_503_Data_Analytics_Essentials/Project/Dataset/wfp_food_prices_turkey.rds")
+#saveRDS(refined_data, file = "C:/Ufuk/BDA_503_Data_Analytics_Essentials/Project/Dataset/wfp_food_prices_turkey.rds")
 ```
 
 
@@ -489,9 +489,12 @@ In line with our analysis, we can conclude that most of the food prices in Turke
 In addition, we can say that 2018 food prices in Turkey have increased overall with a few exceptions in line with the reasons explained above.
 
 # References
+#### Resource for Data
 
 *	[Food Prices for Turkey Dataset](https://data.humdata.org/dataset/wfp-food-prices-for-turkey/resource/33f303b8-4557-424e-8205-227b889f00e5)
 *	[WFP](https://data.humdata.org/organization/3ecac442-7fed-448d-8f78-b385ef6f84e7)
+
+#### News About Data
 *	[Haberturk news about bread prices](https://www.haberturk.com/emek-fiyatlari-istanbul-da-ekmege-zam-geldi-iste-istanbul-ekmek-fiyatlari-2076820-ekonomi#)
 *	[TAGEM Report](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/2018_Ocak_Celtik.pdf)
 *	[Millermagazine news about rice prices](http://www.millermagazine.com/bugday-ve-pirinc-fiyati-martta-yuzde-27-artti/.html)

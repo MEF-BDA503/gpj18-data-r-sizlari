@@ -282,6 +282,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -289,14 +292,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -398,7 +461,7 @@ $(document).ready(function () {
 tmp=tempfile(fileext=&quot;.xlsx&quot;)
 
 # Download file from repository to the temp file
-download.file(&quot;https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/wfp_food_prices_turkey.csv?raw=true&quot;,destfile=tmp,mode=&#39;wb&#39;)
+download.file(&quot;https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/wfp_food_prices_turkey.csv?raw=true&quot;,destfile=tmp,mode='wb')
 
 # Read that csv file.
 raw_data=read.csv(tmp,skip=1)
@@ -424,7 +487,7 @@ mutate(date = ymd(date)) %&gt;%
 mutate_at(vars(date), funs(year, month)) 
 
 # Save organized file as &quot;.rds&quot;
-saveRDS(refined_data, file = &quot;C:/Ufuk/BDA_503_Data_Analytics_Essentials/Project/Dataset/wfp_food_prices_turkey.rds&quot;)</code></pre>
+#saveRDS(refined_data, file = &quot;C:/Ufuk/BDA_503_Data_Analytics_Essentials/Project/Dataset/wfp_food_prices_turkey.rds&quot;)</code></pre>
 </div>
 <div id="data-summary-after-preprocessing" class="section level2">
 <h2>Data Summary after Preprocessing</h2>
@@ -432,7 +495,7 @@ saveRDS(refined_data, file = &quot;C:/Ufuk/BDA_503_Data_Analytics_Essentials/Pro
 # Create a temporary file
 tmp=tempfile(fileext=&quot;.rds&quot;)
 # Download file from repository to the temp file
-download.file(&quot;https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/wfp_food_prices_turkey.rds?raw=true&quot;,destfile=tmp,mode=&#39;wb&#39;)
+download.file(&quot;https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/wfp_food_prices_turkey.rds?raw=true&quot;,destfile=tmp,mode='wb')
 # Read that rds file.
 refined_data=read_rds(tmp)
 # Remove the temp file
@@ -748,9 +811,16 @@ The stockists are also responsible for the rising prices as well as natural disa
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
+<div id="resource-for-data" class="section level4">
+<h4>Resource for Data</h4>
 <ul>
 <li><a href="https://data.humdata.org/dataset/wfp-food-prices-for-turkey/resource/33f303b8-4557-424e-8205-227b889f00e5">Food Prices for Turkey Dataset</a></li>
 <li><a href="https://data.humdata.org/organization/3ecac442-7fed-448d-8f78-b385ef6f84e7">WFP</a></li>
+</ul>
+</div>
+<div id="news-about-data" class="section level4">
+<h4>News About Data</h4>
+<ul>
 <li><a href="https://www.haberturk.com/emek-fiyatlari-istanbul-da-ekmege-zam-geldi-iste-istanbul-ekmek-fiyatlari-2076820-ekonomi#">Haberturk news about bread prices</a></li>
 <li><a href="https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/2018_Ocak_Celtik.pdf">TAGEM Report</a></li>
 <li><a href="http://www.millermagazine.com/bugday-ve-pirinc-fiyati-martta-yuzde-27-artti/.html">Millermagazine news about rice prices</a></li>
@@ -764,6 +834,7 @@ The stockists are also responsible for the rising prices as well as natural disa
 <li><a href="http://ekonomi.haber7.com/ekonomi/haber/2653236-patates-ve-sogan-fiyatlari-neden-surekli-yukseliyor-bakanliktan-mudahale">Haber7 news about onion prices</a></li>
 <li><a href="https://www.birgun.net/haber-detay/sebze-fiyatlari-yukseldi-147217.html">Birgun news about vegetable prices</a></li>
 </ul>
+</div>
 </div>
 
 
