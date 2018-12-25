@@ -6,8 +6,6 @@ output:
   html_document:
     theme: cerulean
     toc: yes
-  pdf_document:
-     toc: yes
 ---
 ---
 
@@ -46,7 +44,7 @@ library(shiny)
   - Cereals and Tubers: Rice and bread 
   - Meat, Fish and Eggs: Fresh fish and mutton meat
   - Milk and Dairy: Milk powder for infants
-  - Miscellaneous Food: Cocoa and instant coffee
+  - Miscellaneous Food: Cacao and instant coffee
   - Oil and Fats: Olive oil
   - Pulses and Nuts: Groundnuts
   - Vegetables and Fruits: Cucumbers, eggplants and onions
