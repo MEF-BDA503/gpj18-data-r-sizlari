@@ -36,7 +36,6 @@ You can find our Shiny App [here.](https://serhans.shinyapps.io/price/)
 Shiny Source Code [here.](app.R)
 
 
-
 #### Useful Links:
 - Github Editor [editor on GitHub](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/edit/master/index.md)
 - Settings [repository settings](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/settings)
