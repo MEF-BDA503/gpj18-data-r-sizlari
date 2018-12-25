@@ -33,7 +33,7 @@ You can find our contribution sheet [here.]()
 
 ## 6. Shiny App (Dec 26)
 You can find our Shiny App [here.](https://serhans.shinyapps.io/price/)
-Shiny Source Code [here.](shiny_final.R)
+Shiny Source Code [here.](app.R)
 
 
 
