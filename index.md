@@ -25,9 +25,9 @@ You can find the revised version of our analysis [here.](Turkey Food Prices_Revi
 You can find the more comprehensive analysis of the project [here.](Turkey_Food_Prices_Exploratory_Analysis.html).
 
 ## 5. Final Presentation (Dec 26)
-You can find final project [here](Turkey_Food_Prices_Final_Project.html)/[pdf.](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/Turkey_Food_Prices_Final_Project.pdf)
+You can find final project [here](Turkey_Food_Prices_Final_Project.html)/[pdf.]()
 
-You can find project presentation [here.]()
+You can find project presentation [here.](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/Turkey%20Food%20Prices.pdf)
 
 You can find our contribution sheet [here.](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/Project%20Contribution%20Sheet.pdf)
 
