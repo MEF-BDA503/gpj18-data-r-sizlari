@@ -25,7 +25,7 @@ You can find the revised version of our analysis [here.](Turkey Food Prices_Revi
 You can find the more comprehensive analysis of the project [here.](Turkey_Food_Prices_Exploratory_Analysis.html).
 
 ## 5. Final Presentation (Dec 26)
-You can find final project [here](Turkey_Food_Prices_Final_Project.html)/[pdf.]()
+You can find final project [here]()/[pdf.]()
 
 You can find project presentation [here.]()
 
