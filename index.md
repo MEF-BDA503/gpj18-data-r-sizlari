@@ -33,7 +33,7 @@ You can find our contribution sheet [here.]()
 
 ## 6. Shiny App (Dec 26)
 You can find our Shiny App [here.](https://serhans.shinyapps.io/price/)
-Shiny Source Code [here.](app.R)
+Shiny Source Code [here.](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/app.R)
 
 
 #### Useful Links:
