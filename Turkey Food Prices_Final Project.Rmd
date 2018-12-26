@@ -421,7 +421,7 @@ In 2018, like almost every other product, groundnut prices significantly increas
 
 ### 7. Yearly Average Price for Vegetables and Fruits
 
-According to yearly average price for vegetables and fruits graph, cucumbers, eggplants and onions have significant price increases in 2018.  
+According to yearly average price for vegetables and fruits graph, in 2017, cucumber and eggplant and in 2018, onion have significant increases in price.  
 
 ```{r}
     refined_data %>% 
