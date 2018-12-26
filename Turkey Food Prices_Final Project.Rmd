@@ -3,11 +3,11 @@ title: "Food Prices for Turkey"
 author: "Data R Sizlari"
 date: "Dec 26, 2018"
 output:
-  pdf_document:
-     toc: yes
   html_document:
     theme: cerulean
     toc: yes
+  pdf_document:
+     toc: yes
 ---
 ---
 
@@ -51,7 +51,7 @@ library(shiny)
   - Pulses and Nuts: Groundnuts
   - Vegetables and Fruits: Cucumbers, eggplants and onions
 - Throughout our analysis, we saw that climate change, natural causes, currency rate crisis and demand & supply balance have great impacts on food price developments.
-- Please see our Shiny app if you want to explore more on the prices ***(Shiny link to be added!!!!!!!)***.
+- Please see our Shiny app if you want to explore more on the prices [(Shiny).](https://serhans.shinyapps.io/price/)
 
 
 # B. Dataset
