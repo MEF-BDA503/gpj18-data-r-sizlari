@@ -282,6 +282,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -289,14 +292,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -344,7 +407,7 @@ $(document).ready(function () {
 <li>Ahmet Turhal <a href="https://mef-bda503.github.io/pj18-aturhal/">Github</a>, <a href="https://www.linkedin.com/in/ahmet-turhal-b9106944/">Linkedin</a></li>
 <li>Istem Akca Korkmaz <a href="https://mef-bda503.github.io/pj18-istema/">Github</a>, <a href="https://www.linkedin.com/in/istemakca-100655/">Linkedin</a></li>
 <li>Mustafa Kurt <a href="https://mef-bda503.github.io/pj18-mustaa8/">Github</a>, <a href="https://www.linkedin.com/in/mustafa-kurt-45602128/">Linkedin</a></li>
-<li>Serhan Süer <a href="https://mef-bda503.github.io/pj18-SerhanSuer/">Github</a>, <a href="https://www.linkedin.com/in/serhan-s%C3%BCer-03646157/">Linkedin</a></li>
+<li>Serhan Suer <a href="https://mef-bda503.github.io/pj18-SerhanSuer/">Github</a>, <a href="https://www.linkedin.com/in/serhan-s%C3%BCer-03646157/">Linkedin</a></li>
 <li>Ufuk Baysal <a href="https://mef-bda503.github.io/pj18-baysalu/">Github</a>, <a href="https://www.linkedin.com/in/ufuk-baysal-68848240/">Linkedin</a></li>
 </ul>
 </div>
@@ -359,7 +422,7 @@ $(document).ready(function () {
 <li>Cereals and Tubers: Rice and bread</li>
 <li>Meat, Fish and Eggs: Fresh fish and mutton meat</li>
 <li>Milk and Dairy: Milk powder for infants</li>
-<li>Miscellaneous Food: Cacao and instant coffee</li>
+<li>Miscellaneous Food: Cocoa and instant coffee</li>
 <li>Oil and Fats: Olive oil</li>
 <li>Pulses and Nuts: Groundnuts</li>
 <li>Vegetables and Fruits: Cucumbers, eggplants and onions</li>
@@ -611,7 +674,7 @@ file.remove(tmp)</code></pre>
 </li>
 <li>Environmental threats such as insects, fungi, etc.</li>
 </ul>
-<p>Related news about the cacao prices can be found in the following <a href="http://www.cumhuriyet.com.tr/haber/gurme/930802/Kakaonun_gelecegi_tehlike_altinda...__Cikolata_40_yil_icinde_yok_olabilir_.html">link</a>.<br />
+<p>Related news about the cocoa prices can be found in the following <a href="http://www.cumhuriyet.com.tr/haber/gurme/930802/Kakaonun_gelecegi_tehlike_altinda...__Cikolata_40_yil_icinde_yok_olabilir_.html">link</a>.<br />
 </p>
 <p><strong><em>Coffee (instant)</em></strong></p>
 <p>In 2015, coffee prices had a notable decrease in the world despite of the increasing demand of the emerging markets. Details of this issue can be found in the following <a href="https://dailycoffeenews.com/2015/04/15/coffee-prices-fall-to-14-month-low-despite-increased-consumption/">link</a>. Additionally, coffee plants are exposed to climate change impacts such as drought, excessive rainfall and pest infestation all over the world which also affects instant coffee prices in Turkey <a href="https://www.bbc.com/turkce/haberler/2015/09/150924_vert_fut_kahve_krizi">link</a>.</p>
@@ -763,7 +826,7 @@ The stockists are also responsible for the rising prices as well as natural disa
 <li><a href="http://www.millermagazine.com/bugday-ve-pirinc-fiyati-martta-yuzde-27-artti/.html">Millermagazine news about rice prices</a></li>
 <li><a href="https://www.memurlar.net/haber/778992/denizden-cikanlar-yetmedi-fiyati-3-e-katlandi.html">Memurlar.net news about fish prices</a></li>
 <li><a href="https://www.sozcu.com.tr/2018/ekonomi/bebek-mamasi-fiyatlari-durdurulamiyor-2284451/">Sozcu news about infant food prices</a></li>
-<li><a href="http://www.cumhuriyet.com.tr/haber/gurme/930802/Kakaonun_gelecegi_tehlike_altinda...__Cikolata_40_yil_icinde_yok_olabilir_.html">Cumhuriyet news about cacao</a></li>
+<li><a href="http://www.cumhuriyet.com.tr/haber/gurme/930802/Kakaonun_gelecegi_tehlike_altinda...__Cikolata_40_yil_icinde_yok_olabilir_.html">Cumhuriyet news about cocoa</a></li>
 <li><a href="https://dailycoffeenews.com/2015/04/15/coffee-prices-fall-to-14-month-low-despite-increased-consumption/">Dailycoffeenews news about coffee prices</a></li>
 <li><a href="https://www.bbc.com/turkce/haberler/2015/09/150924_vert_fut_kahve_krizi">BBC news about coffee</a></li>
 <li><a href="https://www.haberturk.com/ekonomi/haberin-var-mi/haber/1131207-zeytinyaginda-fiyat-artisi-devam-edecek">Haberturk news about olive oil prices</a></li>

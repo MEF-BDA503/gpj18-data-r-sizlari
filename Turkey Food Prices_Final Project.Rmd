@@ -3,11 +3,11 @@ title: "Food Prices for Turkey"
 author: "Data R Sizlari"
 date: "Dec 26, 2018"
 output:
+  pdf_document:
+     toc: yes
   html_document:
     theme: cerulean
     toc: yes
-  pdf_document:
-     toc: yes
 ---
 ---
 
