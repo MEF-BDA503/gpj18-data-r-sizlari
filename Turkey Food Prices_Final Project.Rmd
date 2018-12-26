@@ -6,6 +6,8 @@ output:
   html_document:
     theme: cerulean
     toc: yes
+  pdf_document:
+     toc: yes
 ---
 ---
 
@@ -44,7 +46,7 @@ library(shiny)
   - Cereals and Tubers: Rice and bread 
   - Meat, Fish and Eggs: Fresh fish and mutton meat
   - Milk and Dairy: Milk powder for infants
-  - Miscellaneous Food: Cacao and instant coffee
+  - Miscellaneous Food: Cocoa and instant coffee
   - Oil and Fats: Olive oil
   - Pulses and Nuts: Groundnuts
   - Vegetables and Fruits: Cucumbers, eggplants and onions
@@ -333,7 +335,7 @@ The future of cocoa is said to be under threat due to more than several reasons 
 * Very sensitive to climate changes \
 * Environmental threats such as insects, fungi, etc.
 
-Related news about the cacao prices can be found in the following [link](http://www.cumhuriyet.com.tr/haber/gurme/930802/Kakaonun_gelecegi_tehlike_altinda...__Cikolata_40_yil_icinde_yok_olabilir_.html). \
+Related news about the cocoa prices can be found in the following [link](http://www.cumhuriyet.com.tr/haber/gurme/930802/Kakaonun_gelecegi_tehlike_altinda...__Cikolata_40_yil_icinde_yok_olabilir_.html). \
 
 ***Coffee (instant)***
 
@@ -498,7 +500,7 @@ In addition, we can say that 2018 food prices in Turkey have increased overall w
 *	[Millermagazine news about rice prices](http://www.millermagazine.com/bugday-ve-pirinc-fiyati-martta-yuzde-27-artti/.html)
 *	[Memurlar.net news about fish prices](https://www.memurlar.net/haber/778992/denizden-cikanlar-yetmedi-fiyati-3-e-katlandi.html)
 *	[Sozcu news about infant food prices](https://www.sozcu.com.tr/2018/ekonomi/bebek-mamasi-fiyatlari-durdurulamiyor-2284451/)
-*	[Cumhuriyet news about cacao](http://www.cumhuriyet.com.tr/haber/gurme/930802/Kakaonun_gelecegi_tehlike_altinda...__Cikolata_40_yil_icinde_yok_olabilir_.html)
+*	[Cumhuriyet news about cocoa](http://www.cumhuriyet.com.tr/haber/gurme/930802/Kakaonun_gelecegi_tehlike_altinda...__Cikolata_40_yil_icinde_yok_olabilir_.html)
 *	[Dailycoffeenews news about coffee prices](https://dailycoffeenews.com/2015/04/15/coffee-prices-fall-to-14-month-low-despite-increased-consumption/)
 *	[BBC news about coffee](https://www.bbc.com/turkce/haberler/2015/09/150924_vert_fut_kahve_krizi)
 *	[Haberturk news about olive oil prices](https://www.haberturk.com/ekonomi/haberin-var-mi/haber/1131207-zeytinyaginda-fiyat-artisi-devam-edecek)
