@@ -22,7 +22,7 @@ We have revised our initial analysis based on the reviews of our instructor.
 You can find the revised version of our analysis [here.](Turkey Food Prices_Revised Initial Analysis.html)
 
 ## 4. Exploratory Analysis (Dec 17)
-You can find the more comprehensive analysis of the project [here.](Turkey_Food_Prices_Exploratory_Analysis.html).
+You can find the more comprehensive analysis of the project [here.](Turkey_Food_Prices_Exploratory_Analysis.html)
 
 ## 5. Final Presentation (Dec 26)
 You can find final project [here](Turkey_Food_Prices_Final_Project.html)/[pdf.](https://github.com/MEF-BDA503/gpj18-data-r-sizlari/blob/master/Turkey_Food_Prices_Final_Project.pdf)
@@ -33,6 +33,7 @@ You can find our contribution sheet [here.](https://github.com/MEF-BDA503/gpj18-
 
 ## 6. Shiny App (Dec 26)
 You can find our Shiny App [here.](https://serhans.shinyapps.io/price/)
+
 Shiny Source Code [here.](app.R)
 
 
