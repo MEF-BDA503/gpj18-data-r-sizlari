@@ -29,7 +29,7 @@ library(shiny)
 [Linkedin](https://www.linkedin.com/in/istemakca-100655/)
 *	Mustafa Kurt [Github](https://mef-bda503.github.io/pj18-mustaa8/),
 [Linkedin](https://www.linkedin.com/in/mustafa-kurt-45602128/)
-* Serhan Süer [Github](https://mef-bda503.github.io/pj18-SerhanSuer/),
+* Serhan Suer [Github](https://mef-bda503.github.io/pj18-SerhanSuer/),
 [Linkedin](https://www.linkedin.com/in/serhan-s%C3%BCer-03646157/)
 *	Ufuk Baysal [Github](https://mef-bda503.github.io/pj18-baysalu/),
 [Linkedin](https://www.linkedin.com/in/ufuk-baysal-68848240/)
